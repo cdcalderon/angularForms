@@ -15,9 +15,22 @@ export class TemplateComponent implements OnInit {
   user: any = {
     firstName: null,
     lastName: null,
-    email: null
+    email: null,
+    country: '',
+    gender: 'Male',
+    accept: true
   };
 
+  countries = [{
+    code: 'MX',
+    country: 'Mexico'
+    },
+    {
+      code: 'USA',
+      country: 'United States'
+    }];
+
+  genders: string[] = ['Male', 'Female'];
   constructor() { }
 
   ngOnInit() {
