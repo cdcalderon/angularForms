@@ -1,6 +1,6 @@
 <h4>Forms <small>template</small></h4>
 <hr>
-<form>
+<form (ngSubmit)="save(form)" #form="ngForm" novalidate >
 
   <div>
 
@@ -11,8 +11,19 @@
         <input class="form-control"
                type="text"
                placeholder="Name"
-               name="name"
-               ngModel>
+               name="firstName"
+               [(ngModel)]="user.firstName"
+               required
+               minlength="5"
+               #firstName="ngModel">
+
+        <div *ngIf="firstName.errors?.required">
+          Required Field
+        </div>
+        <div *ngIf="firstName.errors?.minlength">
+          Min {{firstName.errors.minlength.requiredLength}} characters required
+        </div>
+
       </div>
     </div>
 
@@ -23,9 +34,18 @@
         <input class="form-control"
                type="text"
                placeholder="LastName"
-
+               [(ngModel)]="user.lastName"
+               name="lastName"
+               required
+               #lastName="ngModel"
                >
+
+        <div *ngIf="lastName.errors?.required">
+          Required
+        </div>
       </div>
+
+
     </div>
 
   </div>
@@ -36,7 +56,21 @@
 
       <input class="form-control"
              type="email"
-             placeholder="email">
+             placeholder="email"
+             [(ngModel)]="user.email"
+             name="email"
+             required
+             #email="ngModel"
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+
+      <div *ngIf="email.errors?.required">
+        Required
+      </div>
+
+      <div *ngIf="email.errors?.pattern">
+        Format is incorrect
+      </div>
+
     </div>
   </div>
 
