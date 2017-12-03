@@ -9,4 +9,13 @@ export class ReactiveValidators {
       }
       return null;
     }
+
+  static notEqual(control: AbstractControl, password2: string): ValidationErrors | null {
+    if ((control.value as string).toLowerCase() !== password2.toLowerCase() ) {
+      return {
+        notEqual: true
+      };
+    }
+    return null;
+  }
 }

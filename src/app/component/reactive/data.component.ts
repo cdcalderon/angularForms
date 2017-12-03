@@ -34,6 +34,8 @@ export class DataComponent implements OnInit {
                                     Validators.required,
                                     Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')
                                  ]),
+      password1: new FormControl(),
+      password2: new FormControl(),
       hobbies: new FormArray([
         new FormControl('Run', Validators.required)
       ])
@@ -41,6 +43,17 @@ export class DataComponent implements OnInit {
 
     // can set value - real scenario would set value from API and data service
     // this.form.setValue(this.user);
+
+    this.form .controls['password1'].setValidators([
+      Validators.required,
+      (control) => ReactiveValidators.notEqual(control as FormControl, this.password2.value as string)
+    ]);
+
+    this.form .controls['password2'].setValidators([
+      Validators.required,
+      (control) => ReactiveValidators.notEqual(control as FormControl, this.password1.value as string)
+    ]);
+
 
   }
 
@@ -63,6 +76,14 @@ export class DataComponent implements OnInit {
     return this.form.get('hobbies');
   }
 
+  get password1() {
+    return this.form.get('password1');
+  }
+
+  get password2() {
+    return this.form.get('password2');
+  }
+
   addHobby() {
     const hobbies = (<FormArray>this.hobbies).controls;
 
@@ -70,8 +91,6 @@ export class DataComponent implements OnInit {
       new FormControl('', Validators.required)
     );
   }
-
-
 
   save() {
     console.log(this.form.value);
