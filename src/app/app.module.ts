@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
-import { TemplateComponent } from './component/template.component';
-import { DataComponent } from './component/data.component';
+import { TemplateComponent } from './component/template/template.component';
+import { DataComponent } from './component/reactive/data.component';
 
 
 
@@ -17,7 +17,8 @@ import { DataComponent } from './component/data.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

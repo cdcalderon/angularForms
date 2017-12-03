@@ -1,0 +1,111 @@
+<h4>Forms <small>reactive</small></h4>
+<hr>
+<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+
+  <div>
+
+    <div class="form-group row " [ngClass]="{'is-invalid': firstName.invalid}" >
+      <label class="col-2 col-form-label is-valid">First Name</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               placeholder="First Name"
+               formControlName="firstName">
+
+        <div *ngIf="firstName.touched && firstName.invalid" class="alert alert-danger">
+          <div *ngIf="firstName.errors?.required"
+               class="form-control-feedback">
+            First Name is required
+          </div>
+
+          <div *ngIf="firstName.errors?.minlength"
+               class="form-control-feedback">
+            First Name should be minimum {{firstName.errors?.minlength.requiredLength}} characters
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Last Name</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Last Name"
+               formControlName="lastName">
+
+        <div *ngIf="lastName.touched && lastName.invalid" class="alert alert-danger">
+          <div *ngIf="lastName.errors?.required"
+               class="form-control-feedback">
+            Last Name is required
+          </div>
+
+          <div *ngIf="lastName.errors?.minlength"
+               class="form-control-feedback">
+            Last Name should be minimum {{lastName.errors?.minlength.requiredLength}} characters
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Email</label>
+    <div class="col-md-8">
+
+      <input class="form-control"
+             type="email"
+             placeholder="Email"
+             formControlName="email">
+
+      <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+        <div *ngIf="email.errors?.required"
+             class="form-control-feedback">
+          Email is required
+        </div>
+
+        <div *ngIf="email.errors?.pattern"
+             class="form-control-feedback">
+          Email is not in correct format
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Hobbies</label>
+    <div class="col-md-8" formArrayName="hobbies">
+
+      <input *ngFor="let hobby of form.controls['hobbies'].controls; let i = index"
+            [formControlName] ="i"
+            type="text"
+            class="form-control">
+      <button class="btn btn-primary" (click)="addHobby()"> Add Hobby</button>
+
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary">
+        Save
+      </button>
+    </div>
+  </div>
+
+
+
+  {{form.valid}}
+
+</form>
