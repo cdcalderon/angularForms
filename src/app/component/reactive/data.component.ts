@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormArray, AbstractControl, ValidationErrors} from '@angular/forms';
 import {ValidateFn} from "codelyzer/walkerFactory/walkerFn";
+import {ReactiveValidators} from "./reactive.validators";
 
 @Component({
   selector: 'app-data',
@@ -27,7 +28,7 @@ export class DataComponent implements OnInit {
       lastName: new FormControl('', [
                                       Validators.required,
                                       Validators.minLength(3),
-                                      this.noCalderon
+                                      ReactiveValidators.noCalderon
                                     ]),
       email: new FormControl('', [
                                     Validators.required,
@@ -63,23 +64,18 @@ export class DataComponent implements OnInit {
   }
 
   addHobby() {
-    (<FormArray>this.hobbies).push(
+    const hobbies = (<FormArray>this.hobbies).controls;
+
+    hobbies.push(
       new FormControl('', Validators.required)
     );
   }
 
-  noCalderon(control: AbstractControl): ValidationErrors | null {
-      if ((control.value as string).toLowerCase() === 'calderon') {
-        return {
-          noCalderon: true
-        };
-      }
-    return null;
-  }
+
 
   save() {
     console.log(this.form.value);
-    this.form.reset(this.user); // reset form
+    // this.form.reset(this.user); // reset form
   }
 
 }
