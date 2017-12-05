@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators, FormArray, AbstractControl, ValidationErrors} from '@angular/forms';
-import {ValidateFn} from "codelyzer/walkerFactory/walkerFn";
-import {ReactiveValidators} from "./reactive.validators";
+import {ReactiveValidators} from './reactive.validators';
 
 @Component({
   selector: 'app-data',
